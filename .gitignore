@@ -1,0 +1,11 @@
+.ruby-version
+.ruby-gemset
+.env
+
+# Ignore all of the generated gem stuff
+/pkg/
+/*.gem
+
+# Ignore bundler config
+/.bundle/
+/Gemfile.lock
