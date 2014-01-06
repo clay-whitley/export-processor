@@ -4,9 +4,24 @@ require 'thor'
 require 'km-export-processor'
 
 class CLI < Thor
-  desc "hello NAME", "say hello to NAME"
-  def hello(name)
-    puts "Hello #{name}"
+  desc "json_to_json", "Processes all JSON in current directory, to standard format."
+  def json_to_json
+    puts "Processing JSON files in this directory, and outputting new combined file"
+  end
+
+  desc "json_to_csv [JSONFILE]", "Takes a standard JSON file as input, and converts it to CSV"
+  def json_to_csv(jsonfile)
+    puts "Converting file #{jsonfile} to CSV"
+  end
+
+  desc "parse_aliases [JSONFILE]", "Takes JSON as input, and separates the alias calls into their own JSON file"
+  def parse_aliases(jsonfile)
+    puts "Parsing aliases out of #{jsonfile} and into their own JSON file"
+  end
+
+  desc "reimport [JSONFILE] [APIKEY]", "Takes JSON, and a KM API key as input, and sends the data to KISSmetrics"
+  def reimport(jsonfile, apikey)
+    puts "Sending data from #{jsonfile} to KISSmetrics product with key: #{apikey}"
   end
 end
 
