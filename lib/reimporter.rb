@@ -1,11 +1,5 @@
-require 'kmts'
-require 'json'
-
 module KMExport
   class Reimporter
-
-    extend self
-    
     def send_to_KM(json, key)
       KMTS.init(key,
         :use_cron => false, 
