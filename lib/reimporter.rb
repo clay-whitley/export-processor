@@ -1,5 +1,4 @@
 require 'kmts'
-require 'json'
 
 module KMExport
   class Reimporter
@@ -11,7 +10,7 @@ module KMExport
         :use_cron => false, 
         :to_stderr => true)
 
-      logs = JSON.parse(json)
+      logs = json
       logs.each do |line|
         send_line_to_KM(line)
         @stdout.print('.')
