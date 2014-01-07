@@ -26,8 +26,8 @@ module KMExport
       line["_d"] = 1
 
       KMTS.alias(identity,second_identity) if second_identity
-      KMTS.record(identity,event,log) if event
-      KMTS.set(identity,log) unless event || second_identity
+      KMTS.record(identity,event,line) if event
+      KMTS.set(identity,line) unless event || second_identity
     end
   end
 end
