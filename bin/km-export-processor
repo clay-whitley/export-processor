@@ -12,6 +12,7 @@ class CLI < Thor
 
   desc "json_to_csv [JSONFILE]", "Takes a standard JSON file as input, and converts it to CSV"
   def json_to_csv(jsonfile)
+    KMExport.json_to_csv(jsonfile)
     puts "Converting file #{jsonfile} to CSV"
   end
 
