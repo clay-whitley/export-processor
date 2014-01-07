@@ -3,12 +3,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "km-export-processor"
-  spec.version       = "0.0.5"
+  spec.version       = "0.1.0"
   spec.authors       = ["Clay Whitley"]
   spec.email         = ["cwhitley@kissmetrics.com"]
   spec.summary       = %q{A gem for processing KM exports}
   spec.description   = spec.summary
-  spec.homepage      = "http://kissmetrics.github.com/km-export-processor"
+  spec.homepage      = "https://github.com/kissmetrics/km-export-processor"
 
   spec.files         = Dir["lib/**/*"]
   spec.executables   = Dir["bin/**/*"].map! { |f| f.gsub(/bin\//, '') }
