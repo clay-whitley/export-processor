@@ -1,6 +1,3 @@
-require 'kmts'
-require 'json'
-
 module KMExport
   class Reimporter
     def send_to_KM(json, key)
