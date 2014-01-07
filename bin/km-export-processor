@@ -23,6 +23,9 @@ class CLI < Thor
 
   desc "reimport [JSONFILE] [APIKEY]", "Takes JSON, and a KM API key as input, and sends the data to KISSmetrics"
   def reimport(jsonfile, apikey)
+    reimporter = KMExport::Reimporter.new
+    file = File.open(jsonfile)
+    reimporter.send_to_KM(file.read, apikey)
     puts "Sending data from #{jsonfile} to KISSmetrics product with key: #{apikey}"
   end
 end

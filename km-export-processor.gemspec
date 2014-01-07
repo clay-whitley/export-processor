@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "km-export-processor"
-  spec.version       = "0.0.3"
+  spec.version       = "0.0.4"
   spec.authors       = ["Clay Whitley"]
   spec.email         = ["cwhitley@kissmetrics.com"]
   spec.summary       = %q{A gem for processing KM exports}
@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = Dir["test/**/*", "spec/**/*"]
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "km", "~> 1.0"
+  spec.add_runtime_dependency "kmts"
   spec.add_runtime_dependency "thor"
 
   spec.add_development_dependency "bundler", "~> 1.3"
