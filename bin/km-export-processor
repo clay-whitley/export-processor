@@ -6,6 +6,7 @@ require 'km-export-processor'
 class CLI < Thor
   desc "json_to_json", "Processes all JSON in current directory, to standard format."
   def json_to_json
+    KMExport.json_to_json
     puts "Processing JSON files in this directory, and outputting new combined file"
   end
 
