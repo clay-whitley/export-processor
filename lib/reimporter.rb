@@ -13,10 +13,10 @@ module KMExport
       logs = json
       logs.each do |line|
         send_line_to_KM(line)
-        @stdout.print('.')
+        STDOUT.print('.')
       end
 
-      @stdout.print('Reimportation process completed.')
+      STDOUT.print('Reimportation process completed.')
     end
 
     def send_line_to_KM(line)
