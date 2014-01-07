@@ -36,3 +36,11 @@ $ km-export-processor parse_aliases [JSONFILE]
 $ km-export-processor reimport [JSONFILE] [APIKEY]
 ```
 They assume that you are running them from the directory in which all the JSON files are downloaded, and output their files to that same directory. The words inside brackets [] are parameters, to be replaced with the name of the JSON file in question, and the API key to be used.
+
+### Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
