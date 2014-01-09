@@ -16,5 +16,7 @@ module KMExport
     new_file = File.open(jsonfile, "w+")
     new_file.write(JSON.pretty_generate(data))
     alias_file.write(JSON.pretty_generate(aliases))
+    new_file.close
+    alias_file.close
   end
 end
