@@ -16,12 +16,17 @@ describe "json_to_csv" do
       )
     testfile.write(json)
     testfile.close
+    KMExport.json_to_csv(@testfilename)
+    @csv_files = Dir["*converter_result.csv"]
   end
 
   it "correctly converts JSON file to a CSV file" do
-    KMExport.json_to_csv(@testfilename)
-    @csv_files = Dir["*converter_result.csv"]
     @csv_files.length == 1
+  end
+
+  it "uses the correct CSV format" do
+    csv = CSV.table(@csv_files.first)
+    csv.headers.length.should eq 3
   end
 
   after do

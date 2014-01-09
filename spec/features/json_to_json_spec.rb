@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pry'
 
 describe "json_to_json" do
   before :all do
