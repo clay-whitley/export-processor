@@ -14,5 +14,6 @@ module KMExport
     output = File.open(Time.now.to_i.to_s + "_result.json", "w+")
      
     output.write(JSON.pretty_generate(result))
+    output.close
   end
 end
