@@ -1,27 +1,24 @@
 module KMExport
   def self.json_to_csv(jsonfile)
-    default_headers = ["_n", "_p", "_t", "_p2", "_a"]
     headers = []
-    file = File.open(jsonfile)
-    json = JSON.parse(file.read)
-    results = []
-    json.each do |row|
-      headers = headers | row.keys
+    csv_filename = Time.now.to_i.to_s + "_converter_result.csv"
+    input = IO.open(IO.sysopen(jsonfile))
+    output = CSV.open(csv_filename, "w+")
+    
+    until input.eof?
+      headers = headers | JSON.parse(input.readline).keys
     end
 
-    json.each do |row|
+    output << headers
+    input.rewind
+
+    until input.eof?
+      row_data = JSON.parse(input.readline)
       row_result = {}
       headers.each do |header|
-        row_result[header.to_sym] = row[header] || ""
+        row_result[header.to_sym] = row_data[header] || ""
       end
-      results << row_result
-    end
-    
-    CSV.open(Time.now.to_i.to_s + "_converter_result.csv", "wb") do |csv|
-      csv << results.first.keys
-      results.each do |hash|
-        csv << hash.values
-      end
+      output << row_result.values
     end
   end
 end

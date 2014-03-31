@@ -18,14 +18,14 @@ class CLI < Thor
 
   desc "json_to_csv [JSONFILE]", "Takes a KISSmetrics JSON file as input, and converts it to CSV"
   def json_to_csv(jsonfile)
-    KMExport.json_to_csv(jsonfile)
     puts "Converting file #{jsonfile} to CSV"
+    KMExport.json_to_csv(jsonfile)
   end
 
   desc "parse_aliases [JSONFILE]", "Takes KISSmetrics JSON as input, and separates the alias calls into their own JSON file"
   def parse_aliases(jsonfile)
-    KMExport.alias_parser(jsonfile)
     puts "Parsing aliases out of #{jsonfile} and into their own JSON file"
+    KMExport.alias_parser(jsonfile)
   end
 
   desc "reimport [JSONFILE] [APIKEY]", "Takes KISSmetrics JSON, and a KM API key as input, and sends the data to KISSmetrics"
