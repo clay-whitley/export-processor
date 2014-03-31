@@ -1,15 +1,16 @@
 class JSONQueue < Queue
   def initialize(opts)
     super()
-    @file = opts[:file]
+    @io = IO.open(IO.sysopen(opts[:file]))
     @counter = opts[:counter]
   end
 
   def add_to_queue
-    json = JSON.parse(File.read(@file))
-    json.each do |line|
-      self << line
+    100.times do
+      self << JSON.parse(@io.readline)
     end
+    @counter += 100
+    puts "Adding 100 lines to queue, #{counter} so far"
   end
 end
 
@@ -28,6 +29,7 @@ module KMExport
           :use_cron => false, 
           :to_stderr => true)
           until queue.empty?
+            queue.add_to_queue if queue.length < 50
             work_unit = queue.pop(true) rescue nil
             send_line_to_KM(work_unit)
           end

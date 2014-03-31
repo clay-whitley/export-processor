@@ -4,25 +4,31 @@ require 'thor'
 require 'km-export-processor'
 
 class CLI < Thor
-  desc "json_to_json", "Processes all JSON in current directory, to standard format."
-  def json_to_json
+  desc "json_to_json [JSONFILE]", "Processes a non-standard KM JSON file, into a standard format"
+  def json_to_json(jsonfile)
     KMExport.json_to_json
     puts "Processing JSON files in this directory, and outputting new combined file"
   end
 
-  desc "json_to_csv [JSONFILE]", "Takes a standard JSON file as input, and converts it to CSV"
+  desc "json_compiler", "Compiles all KISSmetrics JSON files located in current directory, into a single (nonstandard) file"
+  def json_compiler
+    KMExport.json_compiler
+  end
+
+
+  desc "json_to_csv [JSONFILE]", "Takes a KISSmetrics JSON file as input, and converts it to CSV"
   def json_to_csv(jsonfile)
     KMExport.json_to_csv(jsonfile)
     puts "Converting file #{jsonfile} to CSV"
   end
 
-  desc "parse_aliases [JSONFILE]", "Takes JSON as input, and separates the alias calls into their own JSON file"
+  desc "parse_aliases [JSONFILE]", "Takes KISSmetrics JSON as input, and separates the alias calls into their own JSON file"
   def parse_aliases(jsonfile)
     KMExport.alias_parser(jsonfile)
     puts "Parsing aliases out of #{jsonfile} and into their own JSON file"
   end
 
-  desc "reimport [JSONFILE] [APIKEY]", "Takes JSON, and a KM API key as input, and sends the data to KISSmetrics"
+  desc "reimport [JSONFILE] [APIKEY]", "Takes KISSmetrics JSON, and a KM API key as input, and sends the data to KISSmetrics"
   def reimport(jsonfile, apikey)
     puts "Sending data from #{jsonfile} to KISSmetrics product with key: #{apikey}"
     reimporter = KMExport::Reimporter.new
