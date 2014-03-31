@@ -1,22 +1,28 @@
 module KMExport
   def self.alias_parser(jsonfile)
-    file = File.open(jsonfile)
-    alias_file = File.open(Time.now.to_i.to_s + "_aliases.json", "w+")
-    json = JSON.parse(file.read)
-    aliases = []
-    data = []
+    input = IO.open(IO.sysopen(jsonfile))
+    alias_filename = Time.now.to_i.to_s + "_aliases.json"
+    new_filename = Time.now.to_i.to_s + "_result.json"
+    File.open(alias_filename, "w+").close
+    File.open(new_filename, "w+").close
+    alias_output = IO.open(IO.sysopen(alias_filename, "w"), "w")
+    data_output = IO.open(IO.sysopen(new_filename, "w"), "w")
 
-    json.each do |row|
-      if row["_p2"]
-        aliases << row
+    until input.eof?
+      line = JSON.parse(input.readline)
+      if line["_p2"]
+        alias_output.write(JSON.generate(line))
+        alias_output.write("\n")
       else
-        data << row
+        data_output.write(JSON.generate(line))
+        data_output.write("\n")
       end
     end
-    new_file = File.open(jsonfile, "w+")
-    new_file.write(JSON.pretty_generate(data))
-    alias_file.write(JSON.pretty_generate(aliases))
-    new_file.close
-    alias_file.close
+
+    input.close
+    alias_output.close
+    data_output.close
+
+    File.delete(jsonfile)
   end
 end
