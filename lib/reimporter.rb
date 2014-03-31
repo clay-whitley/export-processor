@@ -1,15 +1,40 @@
+class JSONQueue < Queue
+  def initialize(opts)
+    super()
+    @file = opts[:file]
+    @counter = opts[:counter]
+  end
+
+  def add_to_queue
+    json = JSON.parse(File.read(@file))
+    json.each do |line|
+      self << line
+    end
+  end
+end
+
 module KMExport
   class Reimporter
     def send_to_KM(json, key)
-      KMTS.init(key,
-        :use_cron => false, 
-        :to_stderr => true)
+      pool = 10
+      threads = []
+      queue = JSONQueue.new({file: json, counter: 0})
 
-      logs = JSON.parse(json)
-      logs.each do |line|
-        send_line_to_KM(line)
-        STDOUT.print('.')
+      queue.add_to_queue
+
+      pool.times do
+        threads << Thread.new do
+          KMTS.init(key,
+          :use_cron => false, 
+          :to_stderr => true)
+          until queue.empty?
+            work_unit = queue.pop(true) rescue nil
+            send_line_to_KM(work_unit)
+          end
+        end
       end
+
+      threads.each { |t| t.join }
 
       STDOUT.print('Reimportation process completed.')
     end
