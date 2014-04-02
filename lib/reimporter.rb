@@ -5,22 +5,30 @@ class JSONQueue < Queue
     @counter = opts[:counter]
   end
 
+  def offset(amount)
+    puts "Offsetting by #{amount}"
+    amount.times do
+      @io.readline
+    end
+  end
+
   def add_to_queue
     100.times do
       self << JSON.parse(@io.readline)
     end
     @counter += 100
-    puts "Adding 100 lines to queue, #{counter} so far"
+    puts "Adding 100 lines to queue, #{@counter} so far"
   end
 end
 
 module KMExport
   class Reimporter
-    def send_to_KM(json, key)
+    def send_to_KM(json, key, offset)
       pool = 10
       threads = []
-      queue = JSONQueue.new({file: json, counter: 0})
+      queue = JSONQueue.new({file: json, counter: offset})
 
+      queue.offset(offset)
       queue.add_to_queue
 
       pool.times do
