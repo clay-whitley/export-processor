@@ -28,6 +28,12 @@ class CLI < Thor
     KMExport.alias_parser(jsonfile)
   end
 
+  desc "parse_identity [JSONFILE] [IDENTITY]", "Takes KISSmetrics JSON as an input, and separates any actions taken by the provided identity into their own file" 
+  def parse_identity(jsonfile, identity)
+    puts "Parsing any actions done by #{identity} in #{jsonfile} into their own file"
+    KMExport.identity_parser(jsonfile, identity)
+  end
+
   desc "reimport [JSONFILE] [APIKEY] [OFFSET]", "Takes KISSmetrics JSON, and a KM API key as input, and sends the data to KISSmetrics"
   def reimport(jsonfile, apikey, offset=0)
     puts "Sending data from #{jsonfile} to KISSmetrics product with key: #{apikey}"
